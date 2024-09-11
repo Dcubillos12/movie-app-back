@@ -1,11 +1,11 @@
-import { Body, Controller, Get, HttpCode, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, Param, Post, Put } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-users.dto";
 import { UpdateUserDto } from "./dto/update-users.dto";
 
 @Controller("/users")
 export class UsersController {
-  constructor(private userService: UsersService) {}
+  constructor(private readonly userService: UsersService) {}
   @Get()
   getAllUsers() {
     return this.userService.getUsers();
@@ -16,13 +16,13 @@ export class UsersController {
     return this.userService.getUserId(parseInt(id));
   }
 
-  @Post()  
+  @Post()
   createUser(@Body() user: CreateUserDto) {
     return this.userService.createUser(user);
   }
 
   @Put("/:id")
-  updateUser( @Body() user: UpdateUserDto) {
+  updateUser(@Body() user: UpdateUserDto) {
     return this.userService.updateUser(user);
   }
 

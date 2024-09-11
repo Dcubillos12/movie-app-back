@@ -7,10 +7,19 @@ import { UsersModule } from "./users/users.module";
 import { AuthenticationController } from "./authentication/authentication.controller";
 import { AuthenticationService } from "./authentication/authentication.service";
 import { AuthenticationModule } from "./authentication/authentication.module";
-
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
-  imports: [HttpModule, MoviesModule, UsersModule, AuthenticationModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ".develop.env",
+    }),
+    HttpModule,
+    MoviesModule,
+    UsersModule,
+    AuthenticationModule,
+  ],
   controllers: [AppController, AuthenticationController],
   providers: [AppService, AuthenticationService],
 })

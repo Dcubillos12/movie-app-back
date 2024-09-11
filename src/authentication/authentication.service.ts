@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { UsersService } from "src/users/users.service";
 import * as bcryptjs from "bcryptjs";
-import { RegisterDto } from "./dto/resgister.dto";
-import { LoginDto } from "./dto/login.dto";
+import type { RegisterDto } from "./dto/resgister.dto";
+import type { LoginDto } from "./dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
@@ -46,7 +46,7 @@ export class AuthenticationService {
     const payload = { email: user.email };
 
     const token = await this.jwtService.signAsync(payload);
-    
+
     return {
       token: token,
       email: user.email,

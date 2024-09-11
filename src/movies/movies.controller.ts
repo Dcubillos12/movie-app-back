@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Patch, Post, Put } from "@nestjs/common";
 import { MoviesService } from "./movies.service";
-import { Movie } from "src/interfaces/movies.interfaces";
+import type { Movie } from "src/interfaces/movies.interfaces";
 
 @Controller("/movies")
 export class MoviesController {
-  constructor(private movisService: MoviesService) {}
+  constructor(private readonly movisService: MoviesService) {}
   @Get()
   getAllMovies(page: number): Promise<Movie[]> {
     return this.movisService.getMovies(page);

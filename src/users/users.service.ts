@@ -1,31 +1,30 @@
-import { Injectable, HttpCode, NotAcceptableException } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-users.dto";
-import { UpdateUserDto } from "./dto/update-users.dto";
+import { Injectable, NotAcceptableException } from "@nestjs/common";
+import type { CreateUserDto } from "./dto/create-users.dto";
+import type { UpdateUserDto } from "./dto/update-users.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 @Injectable()
 export class UsersService {
-
   constructor(
     @InjectRepository(User)
-    private readonly usersRepository: Repository<User>
+    private readonly usersRepository: Repository<User>,
   ) {}
   async create(createUserDto: CreateUserDto) {
-    return await this.usersRepository.save(createUserDto);
+    return this.usersRepository.save(createUserDto);
   }
 
   async findOneByEmail(email: string) {
-    return await this.usersRepository.findOneBy({ email });
+    return this.usersRepository.findOneBy({ email });
   }
-  
-  private users = [] =[
-    {   
-        id:1,
-        name:"user1",
-        email:"qCJp1@example.com",
-    }
-  ] ;
+
+  private readonly users = ([] = [
+    {
+      id: 1,
+      name: "user1",
+      email: "qCJp1@example.com",
+    },
+  ]);
   getUsers() {
     return this.users;
   }
